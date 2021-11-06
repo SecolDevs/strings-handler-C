@@ -1,3 +1,4 @@
 # strings-handler-C
-## Use MinGW compiler
-## Project created with C11 Standard
+## Important
+ - Use MinGW Compiler
+ - Created using C11 Standard

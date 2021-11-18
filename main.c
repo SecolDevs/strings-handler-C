@@ -3,32 +3,50 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-
-void PalabraPropia(){
+void PalabraPropia() {
     printf("NOMBRE PROPIO \n");
     int num;
     char cadena[200];
-    char *p=cadena;//puntero de la cadena, inicia en la primera posicion contiene lo que hay en ese almacenamiento
+    char *p = cadena;//puntero de la cadena, inicia en la primera posicion contiene lo que hay en ese almacenamiento
     printf("Digita tu oracion a convertir");
     fflush(stdin);
     //scanf("%s",cadena);
-    fgets(cadena,200,stdin);
-    num= strlen(cadena);
-    while(*p!=0){
-        if(p==cadena||(*p!=' '&& *(p-1)==' '))
-            if(*p>='a'&& *p<='z')
-                *p=*p-('a'-'A');
-                p++;
+    fgets(cadena, 200, stdin);
+    num = strlen(cadena);
+    while (*p != 0) {
+        if (p == cadena || (*p != ' ' && *(p - 1) == ' '))
+            if (*p >= 'a' && *p <= 'z')
+                *p = *p - ('a' - 'A');
+        p++;
 
 
     }
 
-        printf("\n Con Palabras propias entonces queda asi: %s ",cadena);
+    printf("\n Con Palabras propias entonces queda asi: %s ", cadena);
 
 
 }
+
 int stringCounter(char baseText[], char searchString[]) {
-    return 0;
+    int textSize = strlen(baseText), counter = 0, indexString = 0;
+    char auxString[50];
+
+    baseText[textSize] = ' ';
+    baseText[textSize + 1] = '\0';
+
+    for (int i = 0; baseText[i] != '\0'; ++i) {
+        if (baseText[i] == ' ') {
+            auxString[indexString] = '\0';
+            indexString = 0;
+            if (strcmp(searchString, auxString) == 0) counter++;
+            memset(auxString, 0, 50);
+        } else {
+            auxString[indexString] = baseText[i];
+            indexString++;
+        }
+    }
+
+    return counter;
 }
 
 int vowelsCounter(char baseText[]) {
@@ -51,14 +69,15 @@ int VerificarFormato(char *cad) {
     hora = atoi(cad);//convierte la cadena a valor numerico
     minuto = atoi(cad + 3);// a partir del espacio tres da los minutos en forma de numero
     if (hora > 23 || minuto > 59) {
-    return 1;
-}//devolvemos el 1 si no cumple con los requisitos del formato
+        return 1;
+    }//devolvemos el 1 si no cumple con los requisitos del formato
     return 0;
 }
+
 void nuevoanio() {
     const int minfinal = 1439;
     char actual[5];
-   // char nuevo[5];
+    // char nuevo[5];
     /* nuevo[0]='2';
      nuevo[1]='3';
      nuevo[2]=':';
@@ -77,19 +96,42 @@ void nuevoanio() {
 
     minInicial = atoi(actual) * 60 + atoi(actual + 3);
 
-    minTotales=minfinal-minInicial;
+    minTotales = minfinal - minInicial;
     printf("Minutos Totales: %d \n", minTotales);
 
 
-    }
+}
 
 char *fillCharacters(char baseText[], char charToInsert, int rounds, int type) {
     char *result = "";
     return result;
 }
 
-char *deleteCharacters(char baseText[], char charToDelete) {
+char *deleteCharacters(char baseText[], char charToDelete[]) {
+    int indexChar = 0, indexCharLength = 0;
+    int countAddChar = 1;
     char *result = "";
+
+    while (baseText[indexChar]) {
+        countAddChar = 1;
+        int indCaracter = 0;
+        while (charToDelete[indCaracter]) {
+
+            if (baseText[indexChar] == toupper(charToDelete[indCaracter]) ||
+                baseText[indexChar] == tolower(charToDelete[indCaracter])) {
+                countAddChar = 0;
+            }
+            indCaracter++;
+        }
+        if (countAddChar) {
+            baseText[indexCharLength] = baseText[indexChar];
+            indexCharLength++;
+        }
+        indexChar++;
+    }
+    baseText[indexCharLength] = 0;
+
+    result = baseText;
     return result;
 }
 
@@ -98,14 +140,14 @@ char *deleteRepeatedChars() {
     int con;
     char palabra[20];
     printf("Digite una palabra: ");
-    scanf("%s",&palabra);
-    con= strlen(palabra);
+    scanf("%s", &palabra);
+    con = strlen(palabra);
 
 
-    for (int i = 0; i <20; ++i) {
-        for (int j = 0; j < con-1; ++j) {
-            if(i!=j){//para comparar dos veces al mismo tiempo dos casillas diferentes
-                if(palabra[i] == palabra[j]){
+    for (int i = 0; i < 20; ++i) {
+        for (int j = 0; j < con - 1; ++j) {
+            if (i != j) {//para comparar dos veces al mismo tiempo dos casillas diferentes
+                if (palabra[i] == palabra[j]) {
                     palabra[j] = ' ';//palabra en su parte j queda con un espacio
                 }
             }//revisar
@@ -115,12 +157,13 @@ char *deleteRepeatedChars() {
     }
 
     for (int i = 0; i < con; ++i) {
-        printf("%c \n",palabra[i]);
+        printf("%c \n", palabra[i]);
     }
 
 
     getchar();
 }
+
 /*void eliminarcaracteres(){
     char palabra[30],noRepetidos[30],aux;
     printf("Ingrese una palabra");
@@ -142,7 +185,50 @@ char *deleteRepeatedChars() {
     getchar();
 }*/
 char *stringIntersection(char textOne[], char textTwo[]) {
+    int size1, size2, cont = 0, counter = 0;
+    char auxString1[255], auxString2[255];
     char *result = "";
+
+    size2 = strlen(textTwo);
+    for (int i = size2 - 1; i >= 0; --i) {
+        for (int j = 0; j < size2 - 1; ++j) {
+            if (textTwo[i] == textTwo[j]) cont++;
+        }
+        if (cont > 1) {
+            memset(auxString1, 0, 255);
+            memset(auxString2, 0, 255);
+            for (int j = i + 1; j < size2 - 1; ++j) {
+                auxString1[counter] = textTwo[j];
+                counter++;
+            }
+            counter = 0;
+            for (int j = 0; j < i; ++j) {
+                auxString2[j] = textTwo[j];
+            }
+            memset(textTwo, 0, 255);
+            strcat(strcpy(textTwo, auxString2), auxString1);
+            size2 = strlen(textTwo);
+        }
+        cont = 0;
+    }
+
+    size1 = strlen(textOne);
+    size2 = strlen(textTwo);
+    memset(auxString1, 0, 255);
+    cont = 0;
+    counter = 0;
+    for (int i = 0; i < size2; ++i) {
+        for (int j = 0; j < size1; ++j) {
+            if (textTwo[i] == textOne[j]) cont++;
+        }
+        if (cont > 0) {
+            auxString1[counter] = textTwo[i];
+            counter++;
+            cont = 0;
+        }
+    }
+
+    result = auxString1;
     return result;
 }
 
@@ -152,9 +238,12 @@ char *wordsCounter(char baseText[], char wordToCount[]) {
 }
 
 int isValidEmail(char email[]) {
-    return 0;
+    return strchr(email, '@') && strchr(email, '.');;
 }
 
+char baseText[255];
+char otherText[255];
+char charToDelete[1];
 
 void menuSelector() {
     int choosedOption;
@@ -172,10 +261,11 @@ void menuSelector() {
     scanf("%d", &choosedOption);
 
     char inputText[100];
+    fflush(stdin);
 
     switch (choosedOption) {
         case 1:
-           //capitalizeFirstLetter();
+            //capitalizeFirstLetter();
             PalabraPropia();
             menuSelector();
             break;
@@ -192,17 +282,34 @@ void menuSelector() {
         case 5:
             break;
         case 6:
+            printf("Inserta la cadena \n");
+            gets(baseText);
+            printf("Inserta el caracter a eliminar \n");
+            gets(charToDelete);
+            printf("Cadena con caracteres eliminados: \n%s \n", deleteCharacters(baseText, charToDelete));
             break;
         case 7:
+            printf("Inserta la cadena 1 \n");
+            gets(baseText);
+            printf("Inserta la cadena 2 \n");
+            gets(otherText);
+            printf("Cadena de Interseccion: \n%s \n", stringIntersection(baseText, otherText));
             break;
         case 8:
-
             deleteRepeatedChars();
             menuSelector();
             break;
         case 9:
+            printf("Inserta la cadena \n");
+            gets(baseText);
+            printf("Inserta la palabra a contar \n");
+            gets(otherText);
+            printf("La palabra %s se encuentra %d veces \n", otherText, stringCounter(baseText, otherText));
             break;
         case 10:
+            printf("Inserta el email a validar \n");
+            gets(baseText);
+            printf("El email %s es %s \n", baseText, isValidEmail(baseText) ? "CORRECTO" : "INCORRECTO");
             break;
         default:
             break;

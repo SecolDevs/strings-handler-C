@@ -27,6 +27,59 @@ void PalabraPropia() {
 
 }
 
+void Option2() {
+    char fr[100]="",pEnter[100]="",aux[100];
+    short int cont=0,a=0,b=0;
+    printf("Ingreso a la Opcion 2, buscar una palabra en una Frase\n");
+    printf("Escribe una frase \n");
+    gets(fr);
+    printf("Escribe una palabra a buscar\n");
+    gets(aux);
+
+    while (fr[a]!=0){
+        if (fr[a]==' '|| fr[a]==','|| fr[a]=='.'){
+            if (strcmp(pEnter, aux) == 0){
+                ++cont;
+            }
+            for (b=0;b<100;b++){//borrar contenido de la variable
+                pEnter[b]=0;
+            }
+            b=0;
+        } else{
+            pEnter[b]=fr[a];
+            ++b;
+        }
+        a++;
+    }
+    if (strcmp(pEnter, aux) == 0){
+        cont++;
+    }
+    if (cont==0){
+        printf("La palabra %s no se encuentra en la frase", aux);
+    } else{
+        printf("La palabra %s se encuentra %d veces en la frase", aux, cont);
+    }
+
+}
+
+void Option3(){
+    char enterSt[50];
+    printf("Ingrese la frase a revisar\n");
+    gets(enterSt);
+    short int cont=0;
+    for (int i = 0; i < strlen(enterSt); ++i) {
+        if (enterSt[i]=='a' || enterSt[i]=='A' || enterSt[i]=='e' || enterSt[i]=='E' || enterSt[i]=='i' || enterSt[i]=='I' || enterSt[i]=='o' || enterSt[i]=='O' || enterSt[i]=='u' || enterSt[i]=='U'){
+            ++cont;
+        }
+    }
+    if (cont==0){
+        printf("La cadena que ingreso no tiene vocales");
+    } else{
+        printf("La cadena ingresada tiene  %d vocales",cont);
+    }
+
+}
+
 int stringCounter(char baseText[], char searchString[]) {
     int textSize = strlen(baseText), counter = 0, indexString = 0;
     char auxString[50];
@@ -73,7 +126,51 @@ int VerificarFormato(char *cad) {
     }//devolvemos el 1 si no cumple con los requisitos del formato
     return 0;
 }
+void Option5(){
+    char charEnter[1];
+    char enterSt[50];
+    char finalSt[100],aux[100];
+    short int op;
+    short int veces=0;
 
+    printf("Digite el caracter que quiere agregar: \n");
+    //printf_s("Digite un caracter: \n");
+    gets(charEnter);
+    fflush(stdin);
+
+    printf("Digite una frase o palabra:\n");
+    gets(enterSt);
+    fflush(stdin);
+
+
+    printf("Digite las veces que desea agredar %s a la frase %s \n",charEnter,enterSt);
+    scanf("%d",&veces);
+    fflush(stdin);
+
+    printf("Digite 0. Si desea agregar el caracter por la IZQUIERDA\n");
+    printf("Digite 1. Si desea agregar el caracter por la DERECHA\n");
+    scanf("%d",&op);
+    fflush(stdin);
+
+    for (int i = 0; i < veces; ++i) {
+        aux[i]=charEnter[0];
+    }
+    if (op==0){
+        strcpy(finalSt, aux);
+        strcat(finalSt, enterSt);
+
+    }
+    if (op==1){
+        strcpy(finalSt, enterSt);
+        strcat(finalSt,aux);
+
+    }
+    if(op!=1 && op!=0){
+        printf("Ingreso una opcion erronea");
+    }
+
+    printf("La cadena de caracteres final es:\n%s",finalSt);
+}
 void nuevoanio() {
     const int minfinal = 1439;
     char actual[5];
@@ -267,19 +364,33 @@ void menuSelector() {
         case 1:
             //capitalizeFirstLetter();
             PalabraPropia();
+            printf("\n");
+            system("pause");
             menuSelector();
             break;
         case 2:
-
-
+            Option2();
+            printf("\n");
+            system("pause");
+            menuSelector();
             break;
         case 3:
+            printf("Ingreso a la Opcion --Contar vocales--\n");
+            Option3();
+            printf("\n");
+            system("pause");
+            menuSelector();
             break;
         case 4:
             nuevoanio();
             menuSelector();
             break;
         case 5:
+            printf("Ingreso a la Opcion --Llenar con Caracteres--\n");
+            Option5();
+            printf("\n");
+            system("pause");
+            menuSelector();
             break;
         case 6:
             printf("Inserta la cadena \n");
@@ -294,6 +405,7 @@ void menuSelector() {
             printf("Inserta la cadena 2 \n");
             gets(otherText);
             printf("Cadena de Interseccion: \n%s \n", stringIntersection(baseText, otherText));
+            menuSelector();
             break;
         case 8:
             deleteRepeatedChars();
@@ -310,6 +422,7 @@ void menuSelector() {
             printf("Inserta el email a validar \n");
             gets(baseText);
             printf("El email %s es %s \n", baseText, isValidEmail(baseText) ? "CORRECTO" : "INCORRECTO");
+            menuSelector();
             break;
         default:
             break;

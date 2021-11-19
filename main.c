@@ -23,61 +23,59 @@ void PalabraPropia() {
     }
 
     printf("\n Con Palabras propias entonces queda asi: %s ", cadena);
-
-
 }
 
 void Option2() {
-    char fr[100]="",pEnter[100]="",aux[100];
-    short int cont=0,a=0,b=0;
+    char fr[100] = "", pEnter[100] = "", aux[100];
+    short int cont = 0, a = 0, b = 0;
     printf("Ingreso a la Opcion 2, buscar una palabra en una Frase\n");
     printf("Escribe una frase \n");
     gets(fr);
     printf("Escribe una palabra a buscar\n");
     gets(aux);
 
-    while (fr[a]!=0){
-        if (fr[a]==' '|| fr[a]==','|| fr[a]=='.'){
-            if (strcmp(pEnter, aux) == 0){
+    while (fr[a] != 0) {
+        if (fr[a] == ' ' || fr[a] == ',' || fr[a] == '.') {
+            if (strcmp(pEnter, aux) == 0) {
                 ++cont;
             }
-            for (b=0;b<100;b++){//borrar contenido de la variable
-                pEnter[b]=0;
+            for (b = 0; b < 100; b++) {//borrar contenido de la variable
+                pEnter[b] = 0;
             }
-            b=0;
-        } else{
-            pEnter[b]=fr[a];
+            b = 0;
+        } else {
+            pEnter[b] = fr[a];
             ++b;
         }
         a++;
     }
-    if (strcmp(pEnter, aux) == 0){
+    if (strcmp(pEnter, aux) == 0) {
         cont++;
     }
-    if (cont==0){
+    if (cont == 0) {
         printf("La palabra %s no se encuentra en la frase", aux);
-    } else{
+    } else {
         printf("La palabra %s se encuentra %d veces en la frase", aux, cont);
     }
 
 }
 
-void Option3(){
+void Option3() {
     char enterSt[50];
     printf("Ingrese la frase a revisar\n");
     gets(enterSt);
-    short int cont=0;
+    short int cont = 0;
     for (int i = 0; i < strlen(enterSt); ++i) {
-        if (enterSt[i]=='a' || enterSt[i]=='A' || enterSt[i]=='e' || enterSt[i]=='E' || enterSt[i]=='i' || enterSt[i]=='I' || enterSt[i]=='o' || enterSt[i]=='O' || enterSt[i]=='u' || enterSt[i]=='U'){
+        if (enterSt[i] == 'a' || enterSt[i] == 'A' || enterSt[i] == 'e' || enterSt[i] == 'E' || enterSt[i] == 'i' ||
+            enterSt[i] == 'I' || enterSt[i] == 'o' || enterSt[i] == 'O' || enterSt[i] == 'u' || enterSt[i] == 'U') {
             ++cont;
         }
     }
-    if (cont==0){
+    if (cont == 0) {
         printf("La cadena que ingreso no tiene vocales");
-    } else{
-        printf("La cadena ingresada tiene  %d vocales",cont);
+    } else {
+        printf("La cadena ingresada tiene  %d vocales", cont);
     }
-
 }
 
 int stringCounter(char baseText[], char searchString[]) {
@@ -102,10 +100,6 @@ int stringCounter(char baseText[], char searchString[]) {
     return counter;
 }
 
-int vowelsCounter(char baseText[]) {
-    return 0;
-}
-
 int VerificarFormato(char *cad) {
     int hora, minuto;
     if (strlen(cad) != 5) {
@@ -126,12 +120,13 @@ int VerificarFormato(char *cad) {
     }//devolvemos el 1 si no cumple con los requisitos del formato
     return 0;
 }
-void Option5(){
+
+void Option5() {
     char charEnter[1];
     char enterSt[50];
-    char finalSt[100],aux[100];
+    char finalSt[100], aux[100];
     short int op;
-    short int veces=0;
+    short int veces = 0;
 
     printf("Digite el caracter que quiere agregar: \n");
     //printf_s("Digite un caracter: \n");
@@ -143,43 +138,38 @@ void Option5(){
     fflush(stdin);
 
 
-    printf("Digite las veces que desea agredar %s a la frase %s \n",charEnter,enterSt);
-    scanf("%d",&veces);
+    printf("Digite las veces que desea agredar %s a la frase %s \n", charEnter, enterSt);
+    scanf("%d", &veces);
     fflush(stdin);
 
     printf("Digite 0. Si desea agregar el caracter por la IZQUIERDA\n");
     printf("Digite 1. Si desea agregar el caracter por la DERECHA\n");
-    scanf("%d",&op);
+    scanf("%d", &op);
     fflush(stdin);
 
     for (int i = 0; i < veces; ++i) {
-        aux[i]=charEnter[0];
+        aux[i] = charEnter[0];
     }
-    if (op==0){
+    if (op == 0) {
         strcpy(finalSt, aux);
         strcat(finalSt, enterSt);
 
     }
-    if (op==1){
+    if (op == 1) {
         strcpy(finalSt, enterSt);
-        strcat(finalSt,aux);
+        strcat(finalSt, aux);
 
     }
-    if(op!=1 && op!=0){
+    if (op != 1 && op != 0) {
         printf("Ingreso una opcion erronea");
     }
 
-    printf("La cadena de caracteres final es:\n%s",finalSt);
+    printf("La cadena de caracteres final es:\n%s", finalSt);
 }
+
 void nuevoanio() {
     const int minfinal = 1439;
     char actual[5];
-    // char nuevo[5];
-    /* nuevo[0]='2';
-     nuevo[1]='3';
-     nuevo[2]=':';
-     nuevo[3]='5';
-     nuevo[4]='9';*/
     int minInicial, minTotales;
     printf(" Digite la hora desde la que quiere conocer los minutos  ");
     fflush(stdin);
@@ -195,14 +185,8 @@ void nuevoanio() {
 
     minTotales = minfinal - minInicial;
     printf("Minutos Totales: %d \n", minTotales);
-
-
 }
 
-char *fillCharacters(char baseText[], char charToInsert, int rounds, int type) {
-    char *result = "";
-    return result;
-}
 
 char *deleteCharacters(char baseText[], char charToDelete[]) {
     int indexChar = 0, indexCharLength = 0;
@@ -257,30 +241,9 @@ char *deleteRepeatedChars() {
         printf("%c \n", palabra[i]);
     }
 
-
     getchar();
 }
 
-/*void eliminarcaracteres(){
-    char palabra[30],noRepetidos[30],aux;
-    printf("Ingrese una palabra");
-    fflush(stdin);
-    fgets(palabra,30,stdin);
-
-    for (int i=1;i<50;i++){
-        for(int j=0;j<50;j++){
-            if(palabra[i]!=palabra[j])
-            {
-                aux=palabra[j];
-                palabra[j]=palabra[i];
-                palabra[j]=aux;
-                noRepetidos[j]=palabra[j];
-            }
-        }
-    }
-    printf("%s",noRepetidos);
-    getchar();
-}*/
 char *stringIntersection(char textOne[], char textTwo[]) {
     int size1, size2, cont = 0, counter = 0;
     char auxString1[255], auxString2[255];
@@ -329,10 +292,6 @@ char *stringIntersection(char textOne[], char textTwo[]) {
     return result;
 }
 
-char *wordsCounter(char baseText[], char wordToCount[]) {
-    char *result = "";
-    return result;
-}
 
 int isValidEmail(char email[]) {
     return strchr(email, '@') && strchr(email, '.');;
@@ -398,6 +357,7 @@ void menuSelector() {
             printf("Inserta el caracter a eliminar \n");
             gets(charToDelete);
             printf("Cadena con caracteres eliminados: \n%s \n", deleteCharacters(baseText, charToDelete));
+            menuSelector();
             break;
         case 7:
             printf("Inserta la cadena 1 \n");
@@ -417,6 +377,7 @@ void menuSelector() {
             printf("Inserta la palabra a contar \n");
             gets(otherText);
             printf("La palabra %s se encuentra %d veces \n", otherText, stringCounter(baseText, otherText));
+            menuSelector();
             break;
         case 10:
             printf("Inserta el email a validar \n");
